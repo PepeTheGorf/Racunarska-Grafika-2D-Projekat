@@ -1,0 +1,5 @@
+﻿  Main.cpp
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(147,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(153,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(157,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Kostur.vcxproj -> C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\x64\Debug\Kostur.exe

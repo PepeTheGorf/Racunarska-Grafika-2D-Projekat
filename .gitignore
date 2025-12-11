@@ -1,29 +1,2 @@
 # Visual Studio cache
 .vs/
-
-# Build folders
-Debug/
-Release/
-x64/
-x86/
-build/
-
-# CMake generated files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-
-# User-specific Visual Studio files
-*.user
-*.suo
-*.sln.docstates
-
-# Temporary files
-*.tmp
-*.log
-*.obj
-*.pch
-
-# OS files
-Thumbs.db
-desktop.ini
