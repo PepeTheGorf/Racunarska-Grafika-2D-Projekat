@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 // Main fajl funkcija sa osnovnim komponentama OpenGL programa
 
@@ -32,7 +33,7 @@ GLFWcursor* cursor;
 
 float lastTime = 0.0f;
 
-float previousStackY = -0.7f; 
+float previousStackY = -0.7f;
 
 unsigned ketchuoSpillTex, mustardSpillTex;
 
@@ -54,12 +55,18 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     }
 }
 
-void limitFPS(float deltaTime, float targetFrameTime) {
-    if (deltaTime < targetFrameTime) {
-        float sleepTime = targetFrameTime - deltaTime;
-        std::this_thread::sleep_for(std::chrono::duration<float>(sleepTime));
+void limitFPS(float targetFrameTime, float frameStartTime)
+{
+    float frameEnd = glfwGetTime();
+    float frameDuration = frameEnd - frameStartTime;
+
+    if (frameDuration < targetFrameTime) {
+        std::this_thread::sleep_for(
+            std::chrono::duration<float>(targetFrameTime - frameDuration)
+        );
     }
 }
+
 
 
 int main()
@@ -82,7 +89,7 @@ int main()
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
             glfwSetWindowShouldClose(w, true);
         }
-    });
+        });
 
     if (glewInit() != GLEW_OK) return endProgram("GLEW nije uspeo da se inicijalizuje.");
 
@@ -117,8 +124,8 @@ int main()
 
     std::vector<Ingredient*> ingredients;
     int currentIngredientIndex = 0;
-    float spawnX = 0.75f;  
-    float spawnY = -0.75f;  
+    float spawnX = 0.75f;
+    float spawnY = -0.75f;
 
     ingredients.push_back(new Ingredient(spawnX, spawnY, 0.5f, 0.5f, bunBottomTex));
     ingredients.push_back(new Ingredient(spawnX, spawnY, 0.5f, 0.5f, bunBottomTex)); //placeholder for meat patty
@@ -146,17 +153,20 @@ int main()
 
     lastTime = glfwGetTime();
     const float targetFPS = 75.0f;
-    const float targetFrameTime = 1.0f / targetFPS;
+
+    int frameCount = 0;
+    float lastTime = glfwGetTime();
+
+    float frameTime = 1.0 / targetFPS;
+    float lastFrame = glfwGetTime();
 
     while (!glfwWindowShouldClose(window))
     {
-        float currentTime = glfwGetTime();
-        float deltaTime = currentTime - lastTime;
+        float frameStart = glfwGetTime();
 
-        limitFPS(deltaTime, targetFrameTime);
-        currentTime = glfwGetTime();
-        deltaTime = currentTime - lastTime;
-        lastTime = currentTime;
+        float currentTime = glfwGetTime();
+        float deltaTime = currentTime - lastFrame;
+        lastFrame = currentTime;
 
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -164,7 +174,7 @@ int main()
             orderButton->draw(shader, orderTexture);
         }
         else {
-            if (loadingBar->progress < 1.0f) 
+            if (loadingBar->progress < 1.0f)
                 stove->draw(shader);
             else {
                 table->draw(shader);
@@ -183,7 +193,7 @@ int main()
                     if (loadingBar->progress > 1.0f) {
                         loadingBar->progress = 1.0f;
                     }
-      
+
                     float rStart = 0.65f, gStart = 0.30f, bStart = 0.28f;
                     float rEnd = 0.48f, gEnd = 0.23f, bEnd = 0.18f;
 
@@ -192,18 +202,18 @@ int main()
                     float b = bStart + (bEnd - bStart) * loadingBar->progress;
 
                     patty->setColor(r, g, b, 1.0f);
-                    
+
                 }
                 loadingBar->draw(shader);
                 patty->draw(shader);
             }
-            
+
             if (burgerDone) {
                 if (currentIngredientIndex == 0) {
                     patty->setX(0.75f);
                     patty->setY(-0.75f);
                 }
-             
+
 
                 for (int i = 0; i < ingredients.size(); i++) {
                     if (i == 1 && ingredients[0]->placed) {
@@ -264,8 +274,25 @@ int main()
             endMessage->draw(shader, endMessageTex);
         }
 
+        frameCount++;
+        double now = glfwGetTime();
+        if (now - lastTime >= 1.0) {
+            std::cout << "FPS: " << frameCount << std::endl;
+            frameCount = 0;
+            lastTime = now;
+        }
+
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        double endFrame = glfwGetTime();
+        double delta = endFrame - frameStart;
+        while (delta < frameTime) {
+            delta = glfwGetTime() - frameStart;
+        }
+
+        lastFrame = frameStart;
+
     }
 
     delete orderButton;

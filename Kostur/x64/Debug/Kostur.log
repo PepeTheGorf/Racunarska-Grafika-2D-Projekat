@@ -1,5 +1,10 @@
 ﻿  Main.cpp
-C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(147,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(153,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(157,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(60,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(154,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(158,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(160,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(161,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(165,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(167,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\Source\Main.cpp(282,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Kostur.vcxproj -> C:\Users\boris\OneDrive\Desktop\RG_Kostur\Kostur\x64\Debug\Kostur.exe
